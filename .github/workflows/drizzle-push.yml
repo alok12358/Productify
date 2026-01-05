@@ -28,7 +28,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y postgresql-client
-          psql "$DATABASE_URL" -c '\l'
+          psql "$DATABASE_URL" -c 'SELECT 1;'
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - name: Run Drizzle push
