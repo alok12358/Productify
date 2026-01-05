@@ -35,3 +35,12 @@ jobs:
         run: npm run db:push
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - name: Verify schema
+        run: |
+          set -e
+          for t in users products comments; do
+            echo "Checking table: $t"
+            psql "$DATABASE_URL" -c "SELECT 1 FROM \"$t\" LIMIT 1;"
+          done
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
